@@ -25,14 +25,14 @@ add('code','''from pathlib import Path
 import os, sys, urllib.request, zipfile
 
 root=Path.cwd()
-if not (root/'geoguard/core.py').exists():
-    if (root.parent/'geoguard/core.py').exists():
+if not (root/'geoguard/server.py').exists():
+    if (root.parent/'geoguard/server.py').exists():
         root=root.parent
     else:
-        archive=Path('geoguard-main.zip')
-        urllib.request.urlretrieve('https://github.com/losth6wz/Geoguard/archive/refs/heads/main.zip',archive)
-        destination=Path('geoguard_checkout').resolve()
-        destination.mkdir(exist_ok=True)
+        import tempfile, time
+        destination=Path(tempfile.mkdtemp(prefix='geoguard_checkout_'))
+        archive=destination/'geoguard-main.zip'
+        urllib.request.urlretrieve('https://github.com/losth6wz/Geoguard/archive/refs/heads/main.zip?fresh='+str(time.time_ns()),archive)
         with zipfile.ZipFile(archive) as z:
             for name in z.namelist():
                 if not (destination/name).resolve().is_relative_to(destination):
@@ -41,6 +41,10 @@ if not (root/'geoguard/core.py').exists():
         root=destination/'Geoguard-main'
 os.chdir(root)
 sys.path.insert(0,str(root))
+# Forget modules from an older checkout without deleting its files or history.
+for module in list(sys.modules):
+    if module == 'geoguard' or module.startswith('geoguard.'):
+        del sys.modules[module]
 print('Project ready:',root.name)''')
 add('markdown','''## Step 2 — Prepare the tools
 This installs the map, Earth Engine interface and the earlier methane-model software. It does **not train a new AI**. The model weights are downloaded only when needed and checked against a recorded fingerprint.''')
