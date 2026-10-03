@@ -27,7 +27,7 @@ import os, sys, urllib.request, zipfile
 root=Path.cwd()
 def current_checkout(path):
     service=path/'geoguard/server.py'
-    return service.exists() and 'COLAB_PROXY_V4' in service.read_text(encoding='utf-8')
+    return service.exists() and 'COLAB_PROXY_V5' in service.read_text(encoding='utf-8')
 if not current_checkout(root):
     if current_checkout(root.parent):
         root=root.parent
@@ -103,8 +103,8 @@ else:
 display(Image(filename='docs/assets/uae-example.png',width=950))''')
 add('markdown','''## Step 5 — Choose a location and use both analyses
 1. Click the map, type latitude/longitude, or choose one of the comparison areas. The green circle is for NO₂; the orange square is for methane.
-2. In **NO₂ context**, press **Calculate NO₂ history** after Step 3 sign-in. Or load the saved Dubai study if available.
-3. In **Methane screening**, press **Check latest image**. It downloads images, checks quality, compares an earlier reference, obtains modeled wind and runs the unchanged MARS-S2L model.
+2. Under **1. Read the wider NO₂ pattern**, press **Calculate NO₂ history** after Step 3 sign-in. Or load the saved Dubai study if available.
+3. Under **2. Screen the detailed methane image**, press **Check latest image**. It downloads images, checks quality, compares an earlier reference, obtains modeled wind and runs the unchanged MARS-S2L model.
 4. Press **Export results for website** and import that file on the [demo website](https://losth6wz.github.io/Geoguard/).
 5. Also download the **evidence + history ZIP** before disconnecting. Jupyter/Colab runtime storage is not permanent backup.
 

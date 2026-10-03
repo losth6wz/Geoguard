@@ -8,7 +8,7 @@ A single guided notebook and a small website combining **the Sentinel-5P nitroge
 
 1. Open the notebook and press **Run all**. Initial software/model setup may take several minutes.
 2. Leave the Earth Engine project blank for saved examples, or enter your registered project ID and complete sign-in to calculate fresh NO₂ values.
-3. Choose a UAE point on the shared map. Use **NO₂ context** or **Methane screening**.
+3. Choose a UAE point on the shared map. The NO₂ and methane controls appear directly below the map.
 4. Run **Step 5A** to open the website connected to the AI inside Colab. Choose a point and press **Check latest satellite image**. Results return automatically. Manual JSON export/import remains available.
 5. Download the methane evidence/history ZIP before closing Colab. Runtime storage is temporary.
 

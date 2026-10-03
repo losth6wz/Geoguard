@@ -46,9 +46,10 @@ class CombinedLab(LatestDetectionApp):
         methane_tab=W.VBox([W.HTML('<h3>2. Screen the detailed methane image</h3><p>The orange square is approximately 2 × 2 km. This runs the unchanged pretrained MARS-S2L model on available Sentinel-2 imagery. It may take several minutes. Read the acquisition date.</p>'),
             W.HBox([self.check,self.auto]),self.schedule,self.status,self.summary,self.figure,self.history_summary,
             self.save,self.download_status])
-        tabs=W.Tab(children=[no2_tab,methane_tab]);tabs.set_title(0,'NO₂ context');tabs.set_title(1,'Methane screening')
+        # Keep the controls visible in Colab even when its Tab view fails to render.
+        analyses=W.VBox([no2_tab,methane_tab],layout=W.Layout(width='100%'))
         self.widget=W.VBox([W.HTML('<h2>GeoGuard · One place, two views</h2><p>Choose a UAE location. The map is for navigation; it is not a pollution measurement. The two gases use different satellites, dates and area sizes.</p>'),
-            self.presets,W.HBox([self.lat,self.lon]),self.area,self.map,tabs,
+            self.presets,W.HBox([self.lat,self.lon]),self.area,self.map,analyses,
             W.HTML('<h3>3. Share the evidence</h3><p>Export a JSON result file, then use <b>Import notebook results</b> on the website. The file contains dated results, not account credentials. Download the separate methane evidence/history ZIP to keep the full scientific record.</p>'),
             self.json_export,self.export_status,
             W.HTML('<p><b>Forecasting:</b> the methane history is preserved. A UAE forecast remains unavailable until suitable reviewed observations and chronological validation exist. NO₂ charts show past observations, not predictions.</p>')])
