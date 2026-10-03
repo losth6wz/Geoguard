@@ -122,7 +122,7 @@ class LatestDetector:
         out=self.root/'results'/ident
         out.mkdir(parents=True,exist_ok=True)
         progress('Checking the public catalog for new Sentinel-2 images…')
-        scenes=discover(lat,lon,lookback_days=90)
+        scenes=discover(lat,lon,lookback_days=90,progress=progress)
         receipt={'checked_at':now(),'latitude':lat,'longitude':lon,
                  'scenes':[{k:v for k,v in s.items() if k!='stac'} for s in scenes]}
         save_json(out/'catalog_check.json',receipt)

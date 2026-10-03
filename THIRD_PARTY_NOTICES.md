@@ -11,3 +11,5 @@
 - The bundled boundary is the previously used UAE screening boundary; it is not a statement of legal borders. Source provenance is recorded in `sources/migration_manifest.json`.
 
 No blanket license is asserted here over teammate contributions or upstream materials. This repository preserves their provenance and applicable terms.
+
+- **Element 84 Earth Search** provides a public Sentinel-2 L1C catalogue fallback when the primary index is unavailable: https://github.com/Element84/earth-search . Image pixels still come from the same explicit SAFE product in the public Google archive. Catalogue source and item identity are recorded.

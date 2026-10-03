@@ -14,7 +14,7 @@ from urllib.parse import urlsplit
 from .core import bundle, public_methane, validate_location
 
 ROOT = Path(__file__).resolve().parents[1]
-COLAB_PROXY_V2 = True
+COLAB_PROXY_V3 = True
 
 
 class Jobs:
@@ -53,10 +53,12 @@ class Jobs:
                     figure = 'data:image/png;base64,' + base64.b64encode(p.read_bytes()).decode()
             evidence = bundle(methane=public_methane({**result, 'latitude': lat, 'longitude': lon}, figure))
             update(state='done', message=result.get('message', 'Check complete.'), result=evidence)
-        except Exception:
+        except Exception as exc:
             import logging
             logging.exception('Methane check failed')
-            update(state='error', message='The satellite check failed. See the service log and retry; no detection result was produced.')
+            from live_detection.acquisition import CatalogUnavailable
+            message = str(exc) if isinstance(exc,CatalogUnavailable) else 'The satellite check failed ('+type(exc).__name__+'). No detection result was produced.'
+            update(state='error', message=message)
 
     def get(self, ident):
         with self.lock:

@@ -31,3 +31,7 @@ The real local browser check at 25.2048 N, 55.2708 E completed through the API: 
 The local test used the existing experimental NOAA GFS wind fallback after GEOS-FP timed out; equivalent detector accuracy has not been validated. The website now displays a fallback label when recorded.
 
 The published d830e23 notebook was executed in Google Colab with dependency installation enabled. Its embedded website loaded and showed AI service connected. GitHub Pages links are pinned to this corrected notebook version to avoid a previously cached main notebook.
+
+## Colab catalogue failure repair — 2026-10-04
+
+Reproduced the reported failure: CDSE returned HTTP 200 HTML Request Rejected to Colab; its OData endpoint returned 403. No model inference had begun. Verified Earth Search returns valid GeoJSON for the same explicit L1C product from Colab. Added a provenance-recorded fallback and clear unavailable-catalogue errors. No model, thresholds or radiometric preprocessing were changed. All 24 local tests pass, including HTML-response fallback, exact SAFE identity, no L2A substitution, empty-result handling and both-providers-unavailable handling. The original migration manifest is a historical baseline; acquisition.py and engine.py have now changed to repair catalogue access.

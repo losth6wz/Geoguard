@@ -27,7 +27,7 @@ import os, sys, urllib.request, zipfile
 root=Path.cwd()
 def current_checkout(path):
     service=path/'geoguard/server.py'
-    return service.exists() and 'COLAB_PROXY_V2' in service.read_text(encoding='utf-8')
+    return service.exists() and 'COLAB_PROXY_V3' in service.read_text(encoding='utf-8')
 if not current_checkout(root):
     if current_checkout(root.parent):
         root=root.parent
@@ -50,7 +50,7 @@ if old_service and getattr(old_service, '_service', None):
     old_service._service.shutdown()
     old_service._service.server_close()
 for module in list(sys.modules):
-    if module == 'geoguard' or module.startswith('geoguard.'):
+    if module.split('.')[0] in ('geoguard', 'live_detection'):
         del sys.modules[module]
 print('Project ready:',root.name)''')
 add('markdown','''## Step 2 — Prepare the tools

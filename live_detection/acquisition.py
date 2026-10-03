@@ -25,6 +25,7 @@ from shapely.ops import transform as geometry_transform
 BANDS = ['B01','B02','B03','B04','B05','B06','B07','B08','B8A','B09','B10','B11','B12']
 DETECTOR_BANDS = ['B02','B03','B04','B08','B11','B12']
 CATALOG = 'https://stac.dataspace.copernicus.eu/v1/search'
+BACKUP_CATALOG = 'https://earth-search.aws.element84.com/v1/search'
 BUCKET = 'https://storage.googleapis.com/gcp-public-data-sentinel-2/'
 LIST_API = 'https://storage.googleapis.com/storage/v1/b/gcp-public-data-sentinel-2/o'
 
@@ -38,27 +39,54 @@ def _check_point(latitude,longitude):
     if not math.isfinite(latitude) or not -90<=latitude<=90: raise ValueError('Invalid latitude')
     if not math.isfinite(longitude) or not -180<=longitude<=180: raise ValueError('Invalid longitude')
 
-def discover(latitude, longitude, lookback_days=90, as_of=None):
+class CatalogUnavailable(RuntimeError):
+    """A readable service failure, not evidence of no satellite observations."""
+
+
+def _catalog_response(url, params):
+    response=requests.get(url,params=params,headers={'Accept':'application/geo+json, application/json'},timeout=60)
+    response.raise_for_status()
+    try:
+        data=response.json()
+    except ValueError as exc:
+        raise CatalogUnavailable('Catalogue returned a non-JSON response.') from exc
+    if not isinstance(data,dict) or not isinstance(data.get('features'),list):
+        raise CatalogUnavailable('Catalogue returned an invalid feature collection.')
+    if any(x.get('rel')=='next' for x in data.get('links',[])):
+        raise CatalogUnavailable('Catalogue result needs pagination; reduce the search window.')
+    return response.url,data
+
+
+def discover(latitude, longitude, lookback_days=90, as_of=None, progress=lambda message: None):
     """Query actual requested point. Results are catalog records, not clear pixels."""
     _check_point(latitude,longitude)
     if not 1<=lookback_days<=366: raise ValueError('lookback_days must be 1–366')
     end=_utc(as_of); start=end-dt.timedelta(days=lookback_days)
     params={'collections':'sentinel-2-l1c','bbox':f'{longitude-.00001},{latitude-.00001},{longitude+.00001},{latitude+.00001}',
             'datetime':f'{start.isoformat()}/{end.isoformat()}','limit':100,'sortby':'-properties.datetime'}
-    response=requests.get(CATALOG,params=params,timeout=60);response.raise_for_status()
-    data=response.json()
-    if any(x.get('rel')=='next' for x in data.get('links',[])):
-        raise RuntimeError('Catalog query requires pagination; reduce the lookback window')
+    source='Copernicus Data Space'
+    try:
+        catalog_url,data=_catalog_response(CATALOG,params)
+    except (requests.RequestException,CatalogUnavailable) as primary_error:
+        progress('Primary catalogue unavailable. Checking the public Earth Search index for the same Sentinel-2 L1C products…')
+        source='Earth Search'
+        try:
+            catalog_url,data=_catalog_response(BACKUP_CATALOG,params)
+        except (requests.RequestException,CatalogUnavailable) as exc:
+            raise CatalogUnavailable('Both satellite catalogues are unavailable from this runtime. No image was assessed. Retry later.') from exc
     checked=_utc().isoformat(); result=[]
     for f in data.get('features',[]):
         p=f['properties']
         # Input-level gate: never swap in L2A/surface reflectance.
-        if '_MSIL1C_' not in f['id']: continue
-        result.append({'id':f['id'],'acquired_at':p['datetime'],'sensor':f['id'].split('_')[0],
+        product_id=(p.get('s2:product_uri','').removesuffix('.SAFE') if source=='Earth Search' else f['id'])
+        if not re.fullmatch(r'S2[ABC]_MSIL1C_[A-Z0-9_]+',product_id):
+            raise CatalogUnavailable('Catalogue supplied an unsupported product identifier; refusing to substitute another processing level.')
+        result.append({'id':product_id,'acquired_at':p['datetime'],'sensor':product_id.split('_')[0],
           'platform':p.get('platform'),'available_at':p.get('published'),
           'catalog_created_at':p.get('created'),'checked_at':checked,
           'scene_cloud_cover':p.get('eo:cloud_cover'),'geometry':f['geometry'],
-          'catalog_url':response.url,'stac':f})
+          'catalog_url':catalog_url,'catalog_source':source,'catalog_item_id':f['id'],
+          'catalog_fallback_used':source=='Earth Search','stac':f})
     return sorted(result,key=lambda x:x['acquired_at'],reverse=True)
 
 def _strip_ns(root):
