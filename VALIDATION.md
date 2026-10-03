@@ -19,3 +19,9 @@ Recorded 4 October 2026, Asia/Dubai. These checks establish software behavior, n
 - A fresh clean-environment dependency install and a fresh methane image inference were not repeated. The previous working inference modules were preserved, and the new notebook was exercised in their existing environment.
 - No UAE methane accuracy, pollution-source attribution, health classification or operational forecasting claim has been validated. Forecast history is retained; no future probability is invented.
 - The website is static. Fresh calculations occur in Jupyter/Colab, with export/import to the website. No unattended backend service or every-few-minutes satellite measurement is claimed.
+
+## Connected service — 2026-10-04
+
+Added same-origin website requests, asynchronous job status, bounded one-job execution, location-aware result rendering, public-field filtering and Colab embedded service startup. All 20 local tests pass, including unauthorized-request rejection, invalid-host and invalid-coordinate rejection, concurrent-job rejection and job/result transport. The job transport test uses an explicit test engine, not scientific inference. Local browser integration is tested separately with the real detector. Colab session startup and a successful fresh model inference must not be inferred from these tests.
+
+Colab integration follows Google's `serve_kernel_port_as_iframe` implementation: https://github.com/googlecolab/colabtools/blob/main/google/colab/output/_util.py . The old window-opening helper is deprecated.

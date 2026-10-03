@@ -9,10 +9,10 @@ A single guided notebook and a small website combining **the Sentinel-5P nitroge
 1. Open the notebook and press **Run all**. Initial software/model setup may take several minutes.
 2. Leave the Earth Engine project blank for saved examples, or enter your registered project ID and complete sign-in to calculate fresh NO₂ values.
 3. Choose a UAE point on the shared map. Use **NO₂ context** or **Methane screening**.
-4. Export the results, then choose **Import notebook results** on the website.
+4. Run **Step 5A** to open the website connected to the AI inside Colab. Choose a point and press **Check latest satellite image**. Results return automatically. Manual JSON export/import remains available.
 5. Download the methane evidence/history ZIP before closing Colab. Runtime storage is temporary.
 
-The website is a static presentation of saved/imported evidence. It does not host the AI model, run Earth Engine, or continuously monitor satellite data. Import happens locally in the visitor's browser. Its freely selectable locations are never silently moved to a prepared example.
+The public GitHub Pages website offers saved evidence and a **Start AI in Colab** link. Step 5A serves the same website through Colab's authenticated output frame with a Python AI service behind it. Colab must remain connected. This is an on-demand latest-image check, not unattended monitoring. A selected location is never silently moved to a prepared example. NO₂ calculations remain in the notebook.
 
 ## What the original NO₂ code does
 
@@ -65,3 +65,9 @@ GitHub Pages serves `docs/` on `main`. Python runs in Jupyter/Colab, not on GitH
 - `VALIDATION.md`: what was executed in this integration and what remains unverified.
 
 See [third-party attribution and terms](THIRD_PARTY_NOTICES.md). This hackathon prototype is not a validated environmental enforcement or health advisory system.
+
+## Connected AI service
+
+Step 5A starts an asynchronous Python service with the unchanged MARS-S2L detector. One job runs at a time; the page polls progress and displays only results matching the selected coordinates. Session tokens protect requests, no cross-origin access is enabled, and only public result fields leave the service. Model evidence/history lives under `runtime/web/` in this mode; copy that folder before disconnecting to preserve it. Runtime restarts clear in-memory job status.
+
+For a local equivalent: `python -m geoguard.server`, then open http://127.0.0.1:8768. This binds only to your computer. Colab uses `serve_kernel_port_as_iframe`; its separately opened-window helper is deprecated by Google. No public tunnel or cloud account is required. The embedded page is for your active Colab session, not an always-on shared public backend.

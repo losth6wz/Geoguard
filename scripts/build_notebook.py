@@ -105,6 +105,12 @@ except NameError:
     pass
 lab=CombinedLab(workspace='runtime',ee_ready=ee_ready)
 lab.display()''')
+add('markdown','''## Step 5A — Use the website with live AI
+Run the next cell. The connected website appears **inside this notebook**. Select a UAE location, then press **Check latest satellite image**. Progress and dated results return to the page automatically; no JSON import is required for this check.
+
+Keep the Colab runtime connected. This checks the latest available imagery when you press the button; it is not a continuous live camera or an automatic monitoring schedule. The public GitHub Pages link remains a launcher and saved-results demo. Colab's authenticated embedded page runs the AI. Download your evidence before ending the session.''')
+add('code','''from geoguard.server import start_demo
+start_demo()''')
 add('markdown','''## Step 6 — Read the result correctly
 
 | Result | What it tells you |

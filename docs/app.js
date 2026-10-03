@@ -62,3 +62,40 @@ $('import-file').addEventListener('change',async e=>{try{const f=e.target.files[
 $('reset').addEventListener('click',()=>{apply(original,'SAVED STUDY');select(presets.dubai.lat,presets.dubai.lon,presets.dubai.name);text('import-status','Restored the bundled saved study.');});
 async function init(){try{if(window.L){map=L.map('map',{scrollWheelZoom:false}).setView([25.1,55.18],10);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);marker=L.circleMarker([selected.lat,selected.lon],{radius:7,color:'#fff',weight:3,fillColor:'#0c554e',fillOpacity:1}).addTo(map);map.on('click',e=>select(e.latlng.lat,e.latlng.lng,'Your selected point',false));}else text('map','Map unavailable. Use the coordinate inputs below.');const response=await fetch('data/demo.json');if(!response.ok)throw Error('Saved results could not load.');original=await response.json();apply(original,'SAVED STUDY');}catch(e){text('snapshot-label','Saved evidence unavailable');text('import-status',e.message);}}
 init();
+
+let liveToken=null;
+async function liveRequest(path, options={}){
+ const response=await fetch(path,{...options,headers:{'Content-Type':'application/json','X-Geoguard-Token':liveToken,...options.headers},signal:AbortSignal.timeout(20000)});
+ const value=await response.json();if(!response.ok)throw Error(value.error||'AI service unavailable');return value;
+}
+async function connectLive(){
+ try{
+  const response=await fetch('api/config',{signal:AbortSignal.timeout(10000)});
+  if(!response.ok)throw Error('Not connected');const config=await response.json();
+  if(typeof config.token!=='string')throw Error('Not connected');
+  liveToken=config.token;$('live-check').disabled=false;$('live-start').hidden=true;
+  text('live-status','AI service connected. Choose a location and run a check. Images can take several minutes to process.');
+ }catch{text('live-status','Start AI in Colab, then run Step 5A. The connected website appears there while your runtime stays open.');}
+}
+$('live-check').addEventListener('click',async()=>{
+ const point={...selected};$('live-check').disabled=true;
+ if(data){data={...data,methane:null};render();}
+ text('live-status','Submitting check for '+point.lat.toFixed(5)+', '+point.lon.toFixed(5)+'…');
+ try{
+  const job=await liveRequest('api/jobs',{method:'POST',body:JSON.stringify({latitude:point.lat,longitude:point.lon})});
+  for(;;){
+   const state=await liveRequest('api/jobs/'+encodeURIComponent(job.id));
+   text('live-status',point.lat.toFixed(5)+', '+point.lon.toFixed(5)+' · '+state.message);
+   if(state.state==='error')throw Error(state.message);
+   if(state.state==='done'){
+    apply({...state.result,no2:data?.no2||null},'LATEST CHECK');
+    text('snapshot-label','New check returned · read the satellite acquisition date');
+    if(!near(point.lat,point.lon))text('live-status',state.message+' Return to '+point.lat.toFixed(5)+', '+point.lon.toFixed(5)+' to view this result.');
+    break;
+   }
+   await new Promise(resolve=>setTimeout(resolve,3000));
+  }
+ }catch(error){text('live-status','Check could not complete: '+error.message+' Keep Colab connected and retry.');}
+ finally{$('live-check').disabled=false;}
+});
+connectLive();
