@@ -14,7 +14,7 @@ from urllib.parse import urlsplit
 from .core import bundle, public_methane, validate_location
 
 ROOT = Path(__file__).resolve().parents[1]
-COLAB_PROXY_V3 = True
+COLAB_PROXY_V4 = True
 
 
 class Jobs:

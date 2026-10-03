@@ -35,3 +35,5 @@ The published d830e23 notebook was executed in Google Colab with dependency inst
 ## Colab catalogue failure repair — 2026-10-04
 
 Reproduced the reported failure: CDSE returned HTTP 200 HTML Request Rejected to Colab; its OData endpoint returned 403. No model inference had begun. Verified Earth Search returns valid GeoJSON for the same explicit L1C product from Colab. Added a provenance-recorded fallback and clear unavailable-catalogue errors. No model, thresholds or radiometric preprocessing were changed. All 24 local tests pass, including HTML-response fallback, exact SAFE identity, no L2A substitution, empty-result handling and both-providers-unavailable handling. The original migration manifest is a historical baseline; acquisition.py and engine.py have now changed to repair catalogue access.
+
+Earth Search returned a next link even for a 23-item page; its following page was empty. Added bounded same-provider GET pagination instead of treating a next link as failure. All 25 local tests pass, including this exact short-page case.

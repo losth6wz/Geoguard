@@ -27,7 +27,7 @@ import os, sys, urllib.request, zipfile
 root=Path.cwd()
 def current_checkout(path):
     service=path/'geoguard/server.py'
-    return service.exists() and 'COLAB_PROXY_V3' in service.read_text(encoding='utf-8')
+    return service.exists() and 'COLAB_PROXY_V4' in service.read_text(encoding='utf-8')
 if not current_checkout(root):
     if current_checkout(root.parent):
         root=root.parent
