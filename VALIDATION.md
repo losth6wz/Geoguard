@@ -29,3 +29,5 @@ Colab integration follows Google's `serve_kernel_port_as_iframe` implementation:
 The real local browser check at 25.2048 N, 55.2708 E completed through the API: candidate, 206 flagged pixels, 96.04% common usable coverage, current image 2026-09-29 and reference 2026-09-19. This is a model candidate requiring review, not confirmation of a methane release. The actual result and evidence are retained in ignored runtime/web/.
 
 The local test used the existing experimental NOAA GFS wind fallback after GEOS-FP timed out; equivalent detector accuracy has not been validated. The website now displays a fallback label when recorded.
+
+The published d830e23 notebook was executed in Google Colab with dependency installation enabled. Its embedded website loaded and showed AI service connected. GitHub Pages links are pinned to this corrected notebook version to avoid a previously cached main notebook.
