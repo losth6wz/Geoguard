@@ -41,7 +41,7 @@ class CombinedLab(LatestDetectionApp):
             field.observe(self.no2_inputs_changed,names='value')
         no2_tab=W.VBox([W.HTML('<h3>1. Read the wider NO₂ pattern</h3><p>NO₂ means nitrogen dioxide. The green circle is the comparison area; values describe the gas through the atmosphere above it. NRTI is the faster product; OFFL is the offline product. The end date is excluded.</p>'),
             W.HBox([self.start_date,self.end_date]),W.HBox([self.product,self.radius]),
-            W.HTML('<p>Your selected circle is compared with Raseel’s two Dubai areas. Labels are study locations, not proven sources.</p>'),
+            W.HTML('<p>Your selected circle is compared with the two Dubai comparison areas. Labels are study locations, not proven sources.</p>'),
             W.HBox([self.no2_check,self.no2_demo]),self.no2_status,self.no2_plot])
         methane_tab=W.VBox([W.HTML('<h3>2. Screen the detailed methane image</h3><p>The orange square is approximately 2 × 2 km. This runs the unchanged pretrained MARS-S2L model on available Sentinel-2 imagery. It may take several minutes. Read the acquisition date.</p>'),
             W.HBox([self.check,self.auto]),self.schedule,self.status,self.summary,self.figure,self.history_summary,

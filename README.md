@@ -1,6 +1,6 @@
 # Geoguard
 
-A single guided notebook and a small website combining **Raseel's Sentinel-5P nitrogen dioxide idea** with **Abdulaziz's existing Sentinel-2 methane screening workflow** for the UAE.
+A single guided notebook and a small website combining **the Sentinel-5P nitrogen dioxide analysis** with **the existing Sentinel-2 methane screening workflow** for the UAE.
 
 **[Open the demo](https://losth6wz.github.io/Geoguard/) · [Open the notebook in Colab](https://colab.research.google.com/github/losth6wz/Geoguard/blob/main/Geoguard.ipynb)**
 
@@ -14,9 +14,9 @@ A single guided notebook and a small website combining **Raseel's Sentinel-5P ni
 
 The website is a static presentation of saved/imported evidence. It does not host the AI model, run Earth Engine, or continuously monitor satellite data. Import happens locally in the visitor's browser. Its freely selectable locations are never silently moved to a prepared example.
 
-## What Raseel's code does
+## What the original NO₂ code does
 
-It marks two Dubai points and draws the mean Sentinel-5P tropospheric NO₂ column from 1 January through 31 August 2026. The end date `2026-09-01` is excluded. It does not calculate the two area means, train a model, or identify pollution sources. The original supplied Arabic-commented code is unchanged in [sources/raseel_original.js](sources/raseel_original.js).
+It marks two Dubai points and draws the mean Sentinel-5P tropospheric NO₂ column from 1 January through 31 August 2026. The end date `2026-09-01` is excluded. It does not calculate the two area means, train a model, or identify pollution sources. The original supplied Arabic-commented code is unchanged in [sources/no2_original.js](sources/no2_original.js).
 
 Our extension adds selectable areas, 5 km comparison circles, daily and monthly histories, missing-data counts, and an export the website understands. Available granules are averaged per day before area reduction; valid days receive equal weight in summaries. This aggregation differs deliberately from the original direct collection mean. Negative retrievals are preserved except the catalog's documented extreme-outlier cutoff; valid masks are inherited from the catalog.
 
@@ -60,7 +60,7 @@ GitHub Pages serves `docs/` on `main`. Python runs in Jupyter/Colab, not on GitH
 - `geoguard/`: NO₂ calculations, shared export format and notebook interface.
 - `live_detection/`, `guided_colab/`: previously tested methane acquisition, preprocessing, model, history and UI.
 - `docs/`: static website and clearly dated saved evidence.
-- `sources/`: Raseel's supplied code and reproducible Earth Engine export script.
+- `sources/`: the supplied NO₂ code and reproducible Earth Engine export script.
 - `tests/`: missing-data, date, export, notebook and application checks.
 - `VALIDATION.md`: what was executed in this integration and what remains unverified.
 

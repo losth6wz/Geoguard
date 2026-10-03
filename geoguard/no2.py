@@ -1,4 +1,4 @@
-"""Raseel's Sentinel-5P idea, extended to dated area comparisons.
+"""The Sentinel-5P analysis, extended to dated area comparisons.
 
 Earth Engine authentication is required only when query_no2 is called.
 The 0.01 degree L3 grid is not the instrument's true resolving power.

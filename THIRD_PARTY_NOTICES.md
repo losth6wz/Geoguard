@@ -1,7 +1,7 @@
 # Attribution and source terms
 
-- **Raseel** supplied the Dubai Sentinel-5P JavaScript idea and two study points. Her original comments and code are preserved in `sources/raseel_original.js`. Labels are study hypotheses, not verified source classifications.
-- **Abdulaziz / GeoGuard** supplied the existing public Sentinel-2 acquisition adapter, candidate-screening UI, dated history and earlier tested UAE result. The earlier project remains unchanged outside this new repository.
+- The original Dubai Sentinel-5P JavaScript and two study points are preserved in `sources/no2_original.js`. Labels are study hypotheses, not verified source classifications.
+- The existing GeoGuard workflow supplies the public Sentinel-2 acquisition adapter, candidate-screening UI, dated history and earlier tested UAE result. The earlier project remains unchanged outside this new repository.
 - **UNEP IMEO MARS-S2L**: https://github.com/UNEP-IMEO-MARS/marss2l and https://huggingface.co/datasets/UNEP-IMEO/MARS-S2L . Upstream code is LGPLv3; model/data terms are CC BY-NC-SA 4.0. Unchanged pretrained weights are downloaded at runtime, not included in this repository. Preserve upstream attribution and applicable non-commercial/share-alike obligations; public source availability is not a grant of unrestricted commercial use.
 - **Copernicus Sentinel data** and the **Google Earth Engine catalog** supply NO₂ products. Public Sentinel-2 pixels are acquired from Google's Sentinel-2 archive, using Copernicus catalog discovery. Sentinel data terms apply. The original software is not a satellite instrument or ground monitor.
 - **CloudSEN12** supplies the cloud model through the existing adapter; see the model repository/license referenced in `live_detection/auxiliary.py`.

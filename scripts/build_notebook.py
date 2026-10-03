@@ -14,7 +14,7 @@ add('markdown','''# GeoGuard — NO₂ context and methane screening
 
 **One notebook, two questions:** how does nitrogen dioxide vary across larger areas, and does a detailed image contain a methane-like pattern?
 
-Raseel's code supplies the NO₂ idea. Abdulaziz's existing workflow supplies the pretrained methane detector. We keep their measurements separate, like two instruments on one dashboard: they look at different gases and cannot be averaged into a meaningful “pollution score”.
+The Sentinel-5P workflow supplies the NO₂ analysis. The Sentinel-2 workflow supplies the pretrained methane detector. We keep their measurements separate, like two instruments on one dashboard: they look at different gases and cannot be averaged into a meaningful “pollution score”.
 
 **Press Run all, then use the shared map in Step 5.** The initial setup can take several minutes. A CPU runtime is enough. Saved results work without Earth Engine sign-in; new NO₂ queries need a registered Earth Engine project. Methane queries use public imagery without that account.
 
@@ -76,7 +76,7 @@ else:
 add('markdown','''## Step 4 — Understand the saved evidence
 These are dated results at their recorded locations. They do not follow the map pointer.
 
-Raseel's original JavaScript marks two points, selects the **tropospheric NO₂ column** (the amount of nitrogen dioxide through the lower atmosphere above an area), averages images from 1 January to **before** 1 September 2026, and colours the map. It does not train AI, calculate a ground-level concentration or prove a source. The original script is preserved in `sources/raseel_original.js`.
+The original JavaScript marks two points, selects the **tropospheric NO₂ column** (the amount of nitrogen dioxide through the lower atmosphere above an area), averages images from 1 January to **before** 1 September 2026, and colours the map. It does not train AI, calculate a ground-level concentration or prove a source. The original script is preserved in `sources/no2_original.js`.
 
 Our extended version averages available images within each day, calculates area values inside 5 km circles, then compares monthly means. This reduces unequal weighting from the number of image granules on a day. Clouds and missing coverage can still affect the comparison.
 
@@ -91,7 +91,7 @@ else:
     print('NO₂ measurements are not bundled: the live Earth Engine retrieval was not verified. Use Step 3 to calculate them; no values have been invented.')
 display(Image(filename='docs/assets/uae-example.png',width=950))''')
 add('markdown','''## Step 5 — Choose a location and use both analyses
-1. Click the map, type latitude/longitude, or choose one of Raseel's areas. The green circle is for NO₂; the orange square is for methane.
+1. Click the map, type latitude/longitude, or choose one of the comparison areas. The green circle is for NO₂; the orange square is for methane.
 2. In **NO₂ context**, press **Calculate NO₂ history** after Step 3 sign-in. Or load the saved Dubai study if available.
 3. In **Methane screening**, press **Check latest image**. It downloads images, checks quality, compares an earlier reference, obtains modeled wind and runs the unchanged MARS-S2L model.
 4. Press **Export results for website** and import that file on the [demo website](https://losth6wz.github.io/Geoguard/).
