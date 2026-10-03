@@ -22,7 +22,7 @@ function render(){
  text('methane-value',match?(labels[m.status]||'Result unavailable'):'Not run here');
  text('methane-description',match?(m.message||'Read the recorded result and its limitations.'):'Run a new methane check for this point in the notebook. The saved example belongs only to its original location.');
  text('methane-date',match?'Observed '+(m.current_acquired_at?.slice(0,10)||'unknown')+' · reference '+(m.background_acquired_at?.slice(0,10)||'unknown'):'');
- text('methane-coverage',match&&finite(m.common_valid_fraction)?(100*m.common_valid_fraction).toFixed(2)+'% usable coverage · '+m.candidate_pixels+' flagged pixels':'');
+ text('methane-coverage',match&&finite(m.common_valid_fraction)?(100*m.common_valid_fraction).toFixed(2)+'% usable coverage · '+m.candidate_pixels+' flagged pixels'+(m.wind_fallback_used?' · Experimental wind fallback used':''):'');
  const image=match?(m.figure_data||m.figure_path):null;
  const safeImage=image&&(image==='assets/uae-example.png'||/^data:image\/png;base64,[A-Za-z0-9+/=]+$/.test(image));
  $('methane-evidence').hidden=!safeImage;

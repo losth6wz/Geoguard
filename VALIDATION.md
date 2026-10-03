@@ -25,3 +25,7 @@ Recorded 4 October 2026, Asia/Dubai. These checks establish software behavior, n
 Added same-origin website requests, asynchronous job status, bounded one-job execution, location-aware result rendering, public-field filtering and Colab embedded service startup. All 20 local tests pass, including unauthorized-request rejection, invalid-host and invalid-coordinate rejection, concurrent-job rejection and job/result transport. The job transport test uses an explicit test engine, not scientific inference. Local browser integration is tested separately with the real detector. Colab session startup and a successful fresh model inference must not be inferred from these tests.
 
 Colab integration follows Google's `serve_kernel_port_as_iframe` implementation: https://github.com/googlecolab/colabtools/blob/main/google/colab/output/_util.py . The old window-opening helper is deprecated.
+
+The real local browser check at 25.2048 N, 55.2708 E completed through the API: candidate, 206 flagged pixels, 96.04% common usable coverage, current image 2026-09-29 and reference 2026-09-19. This is a model candidate requiring review, not confirmation of a methane release. The actual result and evidence are retained in ignored runtime/web/.
+
+The local test used the existing experimental NOAA GFS wind fallback after GEOS-FP timed out; equivalent detector accuracy has not been validated. The website now displays a fallback label when recorded.

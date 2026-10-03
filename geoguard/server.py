@@ -14,6 +14,7 @@ from urllib.parse import urlsplit
 from .core import bundle, public_methane, validate_location
 
 ROOT = Path(__file__).resolve().parents[1]
+COLAB_PROXY_V2 = True
 
 
 class Jobs:
@@ -71,6 +72,11 @@ def make_server(port=8768, jobs=None, proxy_host=None):
             super().__init__(*args, directory=str(ROOT / 'docs'), **kwargs)
 
         def allowed_host(self):
+            # Colab authenticates its output proxy and rewrites Host internally.
+            # Only start_demo's Colab branch enables this mode; binding remains
+            # loopback-only and mutation requests still require a session token.
+            if proxy_host:
+                return True
             return self.headers.get('Host') in tuple(filter(None, (f'127.0.0.1:{self.server.server_port}', f'localhost:{self.server.server_port}', proxy_host)))
 
         def reply(self, status, value):
