@@ -1,0 +1,9 @@
+{
+  "source_sha256": "3dfd64543617e291054365804347fdde17adb94f207f80f60dde365ca0b55049",
+  "source_valid": false,
+  "source_validity": "Too few points in geometry component[51.5886 24.2547]",
+  "operation": "unary_union",
+  "output_valid": true,
+  "area_change_degree_squared": -5.5067062021407764e-14,
+  "output_sha256": "38ae2f2383f2c02aa3d695e8de4d30c4b7139c726933238d233137b7e5ee5080"
+}

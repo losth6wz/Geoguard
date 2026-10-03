@@ -1,0 +1,42 @@
+{
+  "date": "2026-10-04",
+  "source_project": "GeoGuard-MARS-S2L, recorded 2026-09-23",
+  "copied_files": [
+    {
+      "path": "live_detection/acquisition.py",
+      "sha256": "00ddd4fbb94d9985b2b9c2ae61dbc96f4e966f9ecb315bb89466143f01db38c7",
+      "unchanged_from_existing_project": true
+    },
+    {
+      "path": "live_detection/auxiliary.py",
+      "sha256": "64ba5d7f7ee35dcfd805be5a67207f36d97e661c7ae6db51630c951e823e2d4c",
+      "unchanged_from_existing_project": true
+    },
+    {
+      "path": "live_detection/history.py",
+      "sha256": "fab23e7abd1306e84b51a5b294a5afd259854eaa43015d53fbe206f7efdd95da",
+      "unchanged_from_existing_project": true
+    },
+    {
+      "path": "live_detection/engine.py",
+      "sha256": "5573c90c34f5ec1221aa4083ea049968a30c079480f3dc01a9a5debeec41c7e8",
+      "unchanged_from_existing_project": true
+    },
+    {
+      "path": "live_detection/app.py",
+      "sha256": "2065c9adfa957f05cffa4c23f2677aacbdada23283895242cff57507f9ef8393",
+      "unchanged_from_existing_project": true
+    },
+    {
+      "path": "guided_colab/detection_helpers.py",
+      "sha256": "40a54edc9ea8220169f038a1901881183fe23a06a48d09e62fad74b6f23c95ce",
+      "unchanged_from_existing_project": true
+    },
+    {
+      "path": "uae/data/country_boundary.geojson",
+      "sha256": "38ae2f2383f2c02aa3d695e8de4d30c4b7139c726933238d233137b7e5ee5080",
+      "unchanged_from_existing_project": true
+    }
+  ],
+  "boundary_source": "Previously archived Carbon Mapper UAE provider boundary; normalized with unary_union as recorded in boundary_normalization.json"
+}

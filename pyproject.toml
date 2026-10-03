@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "geoguard-lab"
+version = "0.1.0"
+description = "UAE nitrogen dioxide context and experimental methane screening"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+notebook = ["earthengine-api>=1.5,<2", "ipywidgets>=8.1,<9", "ipyleaflet>=0.19,<0.21", "matplotlib>=3.8,<4", "pandas>=2,<3", "requests>=2.31,<3"]
+methane = ["marss2l==0.2.10", "pyproj>=3.6,<4"]
+test = ["nbformat>=5.10,<6", "nbclient>=0.10,<1", "ipykernel>=6,<7"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["geoguard*", "live_detection*", "guided_colab*", "uae*"]
+
+[tool.setuptools.package-data]
+uae = ["data/*.geojson"]
