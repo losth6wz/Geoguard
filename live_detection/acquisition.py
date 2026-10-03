@@ -44,17 +44,29 @@ class CatalogUnavailable(RuntimeError):
 
 
 def _catalog_response(url, params):
-    response=requests.get(url,params=params,headers={'Accept':'application/geo+json, application/json'},timeout=60)
-    response.raise_for_status()
-    try:
-        data=response.json()
-    except ValueError as exc:
-        raise CatalogUnavailable('Catalogue returned a non-JSON response.') from exc
-    if not isinstance(data,dict) or not isinstance(data.get('features'),list):
-        raise CatalogUnavailable('Catalogue returned an invalid feature collection.')
-    if any(x.get('rel')=='next' for x in data.get('links',[])):
-        raise CatalogUnavailable('Catalogue result needs pagination; reduce the search window.')
-    return response.url,data
+    from urllib.parse import urlsplit
+    features=[]; seen=set(); first_url=None
+    next_url=url; next_params=params
+    for _ in range(10):
+        response=requests.get(next_url,params=next_params,headers={'Accept':'application/geo+json, application/json'},timeout=60)
+        response.raise_for_status()
+        if first_url is None: first_url=response.url
+        try:
+            data=response.json()
+        except ValueError as exc:
+            raise CatalogUnavailable('Catalogue returned a non-JSON response.') from exc
+        if not isinstance(data,dict) or not isinstance(data.get('features'),list):
+            raise CatalogUnavailable('Catalogue returned an invalid feature collection.')
+        features.extend(data['features'])
+        links=[x for x in data.get('links',[]) if x.get('rel')=='next']
+        if not links or not data['features']:
+            return first_url,{'features':features}
+        link=links[0]; next_url=link.get('href','')
+        if (link.get('method','GET')!='GET' or urlsplit(next_url).scheme!='https'
+                or urlsplit(next_url).netloc!=urlsplit(url).netloc or next_url in seen):
+            raise CatalogUnavailable('Catalogue returned an unsupported pagination link.')
+        seen.add(next_url);next_params=None
+    raise CatalogUnavailable('Catalogue search exceeded ten pages; choose a shorter search window.')
 
 
 def discover(latitude, longitude, lookback_days=90, as_of=None, progress=lambda message: None):

@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import Mock, patch
 import requests
-from live_detection.acquisition import discover, CatalogUnavailable, BACKUP_CATALOG
+from live_detection.acquisition import discover, CatalogUnavailable, BACKUP_CATALOG, _catalog_response
 
 PRODUCT='S2B_MSIL1C_20260929T064629_N0513_R020_T40RCN_20260929T103842'
 
@@ -15,6 +15,13 @@ def response(data=None, invalid=False):
 
 
 class CatalogTests(unittest.TestCase):
+    def test_next_link_with_short_page_is_followed_to_empty_page(self):
+        first={'features':[{'id':'one'}],'links':[{'rel':'next','method':'GET','href':BACKUP_CATALOG+'?next=cursor'}]}
+        with patch('live_detection.acquisition.requests.get',side_effect=[response(first),response({'features':[]})]) as get:
+            _,data=_catalog_response(BACKUP_CATALOG,{})
+        self.assertEqual(data['features'],[{'id':'one'}])
+        self.assertEqual(get.call_count,2)
+
     def test_html_falls_back_preserving_safe_identity(self):
         feature={'id':'S2B_40RCN_20260929_0_L1C','geometry':{'type':'Polygon','coordinates':[]},
                  'properties':{'datetime':'2026-09-29T07:02:40Z','s2:product_uri':PRODUCT+'.SAFE'}}
