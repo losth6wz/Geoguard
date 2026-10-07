@@ -30,7 +30,7 @@ The real local browser check at 25.2048 N, 55.2708 E completed through the API: 
 
 The local test used the existing experimental NOAA GFS wind fallback after GEOS-FP timed out; equivalent detector accuracy has not been validated. The website now displays a fallback label when recorded.
 
-The published d830e23 notebook was executed in Google Colab with dependency installation enabled. Its embedded website loaded and showed AI service connected. GitHub Pages links are pinned to this corrected notebook version to avoid a previously cached main notebook.
+The published d830e23 notebook was executed in Google Colab with dependency installation enabled. Its embedded website loaded and showed AI service connected. At that check, links used a corrected notebook revision to avoid an earlier cached notebook. Current public links use main; rerun setup to obtain the current checkout.
 
 ## Colab catalogue failure repair — 2026-10-04
 
@@ -71,3 +71,10 @@ Executed checks:
 - Browser checks confirm each added quantity's value, unit, dates, coverage, map overlay, scale and chart; website import of the PoC output, rejection of incorrect quantity units, legacy NO₂-only import and explicit empty results at arbitrary new coordinates work.
 
 Remote retrieval used the exact published JavaScript equivalent in an authenticated Code Editor. A fresh authenticated Python query was not executed: it still requires the user's registered Earth Engine account/project. Independent UAE accuracy, uncertainty intervals, source attribution, surface exposure and forecasting are not established by software checks. Different valid days and native footprints limit comparisons. The final shared report preserves the earlier AI section and figure and places the integrated case study on its last page.
+
+
+## Submission audit — 7 October 2026
+
+The current README covers the guide’s ten topics in order, including business use, data/terms, exact activation commands, runtime evidence, example figure and team roles. Root `PoC.ipynb` now carries executed outputs, including the dated screening figure. The builder retains outputs only when all cell sources match; changed cells require re-execution. The root Python requirement and optional test dependency versions now agree with the tested Python 3.12 runner. `requirements.txt` pins the complete credential-free runner; optional live dependencies remain separate.
+
+The root PoC was rerun successfully from a fresh kernel in the pinned runner environment; all 30 full-environment software tests passed. No new satellite retrieval or scientific accuracy validation was performed. Bundled NO₂ has no raster overlay; website, README and report explicitly distinguish its area/history results from CO/SO₂/CH₄ map layers. Registration, slide attachment, form acknowledgement and submission receipt cannot be established from repository checks. See `SUBMISSION_AUDIT.md` for verified and pending items.

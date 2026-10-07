@@ -12,7 +12,7 @@ def code(text):
     cells.append(nbf.v4.new_code_cell(text))
 
 md('''# GeoGuard — PoC Notebook
-Team: GeoGuard · Country: Yemen · Pilot: UAE
+Team: GeoGuard · Theme: Air Quality Intelligence · Pilot: UAE
 
 This submission runs from bundled inputs to a website-compatible result without credentials,
 network queries, model downloads or manual widget clicks. Run every cell in order.
@@ -23,7 +23,8 @@ inference. Use `Geoguard.ipynb` for new imagery and interactive model checks.
 
 Atmospheric columns, regional methane and detailed methane candidates remain separate. Neither proves overall air safety.''')
 code('''from pathlib import Path
-import json, sys, math, csv, base64
+import json, sys, math, csv, base64, random
+random.seed(0)  # The bundled calculations are deterministic; no training is performed.
 root = Path.cwd().resolve()
 if not (root / 'geoguard').is_dir() and (root.parent / 'geoguard').is_dir():
     root = root.parent
@@ -46,7 +47,7 @@ no2 = summarize(rows, SITES, config['start'], config['end_exclusive'],
 for site in no2['sites']:
     print(f"{site['name']}: {site['mean_mol_m2']:.12g} mol/m²; "
           f"{site['valid_days']}/{site['total_days']} usable days")''')
-md('''## 1A. Calculate the additional feasible satellite measurements
+md('''## 1A. Calculate CO, SO₂ and regional CH₄
 CO and SO₂ are atmospheric columns; regional CH₄ is a column-averaged dry-air
 mixing ratio in ppb. These measured quantities use August–September 2026,
 not the January–August NO₂ window. The raw source includes their identities,
@@ -65,7 +66,7 @@ for metric in ['CO', 'SO2', 'CH4']:
         mean = site['mean_value']
         print(metric, site['name'], None if mean is None else mean * spec['display_factor'],
             spec['display_units'], f"{site['valid_days']}/{site['total_days']} usable days")''')
-md('''## 2. Attach the existing methane evidence
+md('''## 2. Display the dated methane evidence
 This is a replay of the UAE check observed on 22 September 2026 against 9 September,
 at 23.86479° N, 53.61893° E. It is a different location and date from the NO₂ study.
 Zero candidate pixels does not mean zero methane. 96.04% is usable coverage, not accuracy.
@@ -73,7 +74,9 @@ No new model inference or forecast is claimed.''')
 code('''saved = json.loads((root / config['methane_source']).read_text(encoding='utf-8'))
 figure = 'data:image/png;base64,' + base64.b64encode((root / 'docs/assets/uae-example.png').read_bytes()).decode()
 methane = public_methane(saved['methane'], figure)
-print(json.dumps({k:v for k,v in methane.items() if k != 'figure_data'}, indent=2, ensure_ascii=False))''')
+print(json.dumps({k:v for k,v in methane.items() if k != 'figure_data'}, indent=2, ensure_ascii=False))
+from IPython.display import display, Image
+display(Image(filename=str(root / 'docs/assets/uae-example.png'), width=900))''')
 md('''## 3. Verify the numerical result against the committed example
 The expected file is supplied for comparison. The calculations above use the raw
 GeoJSON, not the expected means. Checks cover daily and monthly parity, missing-day
@@ -135,4 +138,14 @@ notebook = nbf.v4.new_notebook(cells=cells, metadata={
     'kernelspec': {'display_name': 'Python 3', 'language': 'python', 'name': 'python3'},
     'language_info': {'name': 'python', 'version': '3.12'},
 })
-nbf.write(notebook, ROOT / 'PoC.ipynb')
+destination = ROOT / 'PoC.ipynb'
+# Retain visible execution only when every cell still has the same source.
+# A changed analysis must be run again before publishing its outputs.
+if destination.exists():
+    previous = nbf.read(destination, as_version=4)
+    if [(c.cell_type, c.source) for c in previous.cells] == [(c.cell_type, c.source) for c in notebook.cells]:
+        for cell, old in zip(notebook.cells, previous.cells):
+            if cell.cell_type == 'code':
+                cell.outputs = old.outputs
+                cell.execution_count = old.execution_count
+nbf.write(notebook, destination)

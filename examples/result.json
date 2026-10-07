@@ -1,6 +1,6 @@
 {
   "schema": "geoguard-demo-v1",
-  "exported_at": "2026-10-07T14:15:56.418771+00:00",
+  "exported_at": "2026-10-07T14:58:32.291193+00:00",
   "no2": {
     "status": "ready",
     "collection": "COPERNICUS/S5P/NRTI/L3_NO2",
@@ -2548,7 +2548,7 @@
         "total_days": 243
       }
     ],
-    "retrieved_at": "2026-10-07T14:15:56.363826+00:00",
+    "retrieved_at": "2026-10-07T14:58:32.207411+00:00",
     "method": "Within each UTC day: mean available orbit/granule values per pixel, then spatial mean over valid L3 pixels in each buffered area. Period and monthly summaries give each usable day equal weight.",
     "quality": "Earth Engine catalog ingestion QA mask retained. No qa_value band is assumed. Negative retrievals retained except values below -0.001 mol/m²; missing values remain null.",
     "limits": "Atmospheric column, not ground-level concentration or AQI. Location labels do not establish emission sources. Counts are L3 grid cells, not independent satellite footprints. Changing coverage, weather and retrieval uncertainty affect comparisons."

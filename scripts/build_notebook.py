@@ -54,7 +54,7 @@ for module in list(sys.modules):
         del sys.modules[module]
 print('Project ready:',root.name)''')
 add('markdown','''## Step 2 — Prepare the tools
-This installs the map, Earth Engine interface and the earlier methane-model software. It does not train a new AI. The model weights are downloaded only when needed and checked against a recorded fingerprint.''')
+This installs the map, Earth Engine interface and the pretrained methane-model software. It does not train a new AI. The model weights are downloaded only when needed and checked against a recorded fingerprint.''')
 add('code','''import subprocess
 # GEOGUARD_SKIP_INSTALL is only used by the repository's automated notebook check.
 if os.environ.get('GEOGUARD_SKIP_INSTALL')!='1':
@@ -87,9 +87,7 @@ else:
 add('markdown','''## Step 4 — Understand the saved evidence
 These are dated results at their recorded locations. They do not follow the map pointer.
 
-The original JavaScript marks two points, selects the tropospheric NO₂ column (the amount of nitrogen dioxide through the lower atmosphere above an area), averages images from 1 January to before 1 September 2026, and colours the map. It does not train AI, calculate a ground-level concentration or prove a source. The original script is preserved in `sources/no2_original.js`.
-
-Our extended version averages available images within each day, calculates area values inside 5 km circles, then compares monthly means. This reduces unequal weighting from the number of image granules on a day. Clouds and missing coverage can still affect the comparison.
+GeoGuard averages valid Sentinel-5P granules within each UTC day, reduces them over the comparison circles, then gives usable daily values equal weight in monthly and period means. Bundled circles have 5 km radius. Missing days remain unknown; valid negative columns are retained above −0.001 mol/m². Raseel’s mapping script is preserved in `sources/no2_original.js` as source attribution. Satellite columns do not measure surface concentration or prove a source.
 
 CO, SO₂ and regional CH₄ were retrieved through authenticated Earth Engine on 7 October 2026 for August–September in the same 5 km comparison areas. The saved NO₂ window remains January–August. Each quantity keeps its own units, dates and coverage.
 

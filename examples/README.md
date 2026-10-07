@@ -2,6 +2,7 @@
 
 - `input.json`: reproducible study configuration and source paths.
 - `../sources/no2_earthengine_export.geojson`: actual two-area Earth Engine export, archived 4 October 2026; source collection and date range are in the configuration. No authentication is needed to read it.
+- `../sources/measurements_earthengine_export.geojson`: actual CO/SO₂/CH₄ reductions, 1 August to before 1 October 2026, retrieved 7 October.
 - `../docs/data/demo.json`: previously published dated evidence, including the methane result. The submission replays this result; it does not rerun the detector.
 - `expected_summary.json`: committed reference means, coverage counts, location and dates used for assertions.
 - `result.json`: actual submission-run export, importable through the website's JSON import control.
