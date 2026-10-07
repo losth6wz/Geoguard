@@ -11,14 +11,14 @@ def md(text):
 def code(text):
     cells.append(nbf.v4.new_code_cell(text))
 
-md('''# GeoGuard — Air Quality Intelligence
-**Team:** GeoGuard · **Country:** Yemen · **Pilot:** UAE
+md('''# GeoGuard — PoC Notebook
+Team: GeoGuard · Country: Yemen · Pilot: UAE
 
 This submission runs from bundled inputs to a website-compatible result without credentials,
 network queries, model downloads or manual widget clicks. Run every cell in order.
 
-It **recomputes NO₂ daily/monthly/period summaries from an actual Earth Engine export**
-and packages a **previously executed, dated methane result**. It does not rerun methane
+It recomputes NO₂ daily/monthly/period summaries from an actual Earth Engine export
+and packages a previously executed, dated methane result. It does not rerun methane
 inference. Use `Geoguard.ipynb` for new imagery and interactive model checks.
 
 NO₂ columns and methane candidates remain separate. Neither proves overall air safety.''')
@@ -94,4 +94,4 @@ notebook = nbf.v4.new_notebook(cells=cells, metadata={
     'kernelspec': {'display_name': 'Python 3', 'language': 'python', 'name': 'python3'},
     'language_info': {'name': 'python', 'version': '3.12'},
 })
-nbf.write(notebook, ROOT / 'Submission.ipynb')
+nbf.write(notebook, ROOT / 'PoC.ipynb')

@@ -15,10 +15,10 @@ with tempfile.TemporaryDirectory(prefix='geoguard-kernel-') as folder:
     previous = os.environ.get('JUPYTER_PATH')
     os.environ['JUPYTER_PATH'] = str(Path(folder) / 'share/jupyter') + (os.pathsep + previous if previous else '')
     try:
-        notebook = nbformat.read(ROOT / 'Submission.ipynb', as_version=4)
+        notebook = nbformat.read(ROOT / 'PoC.ipynb', as_version=4)
         NotebookClient(notebook, timeout=120, kernel_name='geoguard-submission',
                        resources={'metadata': {'path': str(ROOT)}}).execute()
-        nbformat.write(notebook, output / 'Submission-executed.ipynb')
+        nbformat.write(notebook, output / 'PoC-executed.ipynb')
     finally:
         if previous is None:
             os.environ.pop('JUPYTER_PATH', None)

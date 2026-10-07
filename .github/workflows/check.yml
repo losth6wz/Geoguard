@@ -23,5 +23,5 @@ jobs:
           python-version: '3.12'
       - run: python -m pip install -r requirements.txt
       - run: python scripts/build_submission_notebook.py
-      - run: git diff --exit-code Submission.ipynb
+      - run: git diff --exit-code PoC.ipynb
       - run: python scripts/run_submission.py

@@ -41,7 +41,7 @@ Earth Search returned a next link even for a 23-item page; its following page wa
 Full repaired Colab website-to-model run completed successfully at 25.2048 N, 55.2708 E: candidate, 115 flagged pixels, 96.04% usable coverage, current 2026-09-29 and reference 2026-09-19. Result was observed in the actual embedded website. This is an unreviewed candidate, not confirmed emissions; it differs from the previous local run and no identical environmental inputs are assumed.
 # Submission packaging — 7 October 2026
 
-- Added a separate credential-free `Submission.ipynb`; every cell executed successfully under Python 3.12.14. It recalculates actual archived NO₂ data and replays dated methane evidence, without claiming fresh inference.
+- Added a separate credential-free `PoC.ipynb`; every cell executed successfully under Python 3.12.14. It recalculates actual archived NO₂ data and replays dated methane evidence, without claiming fresh inference.
 - All 25 existing tests passed. Submission assertions checked exact daily/monthly parity with the archived NO₂ evidence, expected means/counts and methane location/date/result.
 - Added example input, numerical reference, actual exported JSON and executed notebook. The notebook exports both JSON and CSV.
 - Common credential-signature scan of tracked text and new submission artifacts found no matches. This is not proof against every possible secret. No raw satellite images or model weights were added.

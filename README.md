@@ -1,13 +1,13 @@
 # GeoGuard — Air Quality Intelligence
 
-**Team:** GeoGuard · **Country:** Yemen · **Theme:** Air Quality Intelligence
-**Project title:** GeoGuard: Satellite Air Quality Evidence for the UAE
+Team: GeoGuard · Country: Yemen · Theme: Air Quality Intelligence
+Project title: GeoGuard: Satellite Air Quality Evidence for the UAE
 
-**One-line summary:** GeoGuard combines Sentinel-5P nitrogen dioxide histories with experimental Sentinel-2 methane screening to present dated, location-specific evidence for environmental investigation, while keeping missing data and uncertainty visible.
+One-line summary: GeoGuard combines Sentinel-5P nitrogen dioxide histories with experimental Sentinel-2 methane screening to present dated, location-specific evidence for environmental investigation, while keeping missing data and uncertainty visible.
 
-**[Demo website](https://losth6wz.github.io/Geoguard/) · [Submission notebook](Submission.ipynb) · [Interactive notebook](Geoguard.ipynb)**
+[Demo website](https://losth6wz.github.io/Geoguard/) · [PoC notebook](PoC.ipynb) · [Interactive notebook](Geoguard.ipynb)
 
-## Reproduce the submission end to end
+## Run the PoC notebook end to end
 
 Use Python 3.12. Clone this public repository, then run:
 
@@ -20,25 +20,10 @@ python -m pip install -r requirements.txt
 python scripts/run_submission.py
 ```
 
-The runner executes every cell in `Submission.ipynb` and writes an executed notebook, `result.json` and `no2_summary.csv` to `outputs/submission/`. Open the notebook in any Jupyter-compatible editor to inspect or run individual steps. No sign-in, API key, imagery download or manual UI interaction is required after installing the runner dependencies.
+The runner executes every cell in `PoC.ipynb` and writes an executed notebook, `result.json` and `no2_summary.csv` to `outputs/submission/`. Open the notebook in any Jupyter-compatible editor to inspect or run individual steps. No sign-in, API key, imagery download or manual UI interaction is required after installing the runner dependencies.
 
-This reproducible path recalculates NO₂ summaries from the bundled actual Earth Engine export and packages an existing dated methane result. **It does not perform fresh methane inference.** The separate `Geoguard.ipynb` supports new model checks and interactive NO₂ queries; see the live workflow below.
+This reproducible path recalculates NO₂ summaries from the bundled actual Earth Engine export and packages an existing dated methane result. It does not perform fresh methane inference. The separate `Geoguard.ipynb` supports new model checks and interactive NO₂ queries; see the live workflow below.
 
-## Submission checklist
-
-| Form requirement | Repository evidence / status |
-|---|---|
-| README.md | This page: purpose, setup, workflow, outputs and limitations |
-| End-to-end Jupyter notebook | [Submission.ipynb](Submission.ipynb), executable with the command above |
-| Pinned requirements.txt | [requirements.txt](requirements.txt): exact runner dependencies, including resolved transitive packages |
-| Example input | [examples/input.json](examples/input.json) and [actual NO₂ export](sources/no2_earthengine_export.geojson) |
-| Example output | [expected numerical summary](examples/expected_summary.json), [website-compatible output](examples/result.json) and [executed notebook](examples/Submission-executed.ipynb) |
-| No credentials or restricted imagery | Submission uses public Sentinel-derived numerical records; no raw satellite imagery or model weights are bundled. See source terms below. |
-| Organizer access | Public repository: https://github.com/losth6wz/Geoguard |
-| Presentation slides | Upload a PDF (maximum 50 MB) separately in the submission form; not provided by this repository update |
-| Optional supporting archive | Form permits a ZIP up to 200 MB; GitHub source ZIP is available from Code → Download ZIP |
-
-The screenshot is the checklist used here. Its linked submission guide was not supplied, so guide-specific requirements and whether judges require fresh inference in the noninteractive notebook remain unverified. Team membership/registration and final form submission must be completed in the organizer portal.
 
 ## Example results and provenance
 
@@ -52,19 +37,19 @@ NO₂ is an atmospheric column, not AQI or ground-level exposure. Methane screen
 
 ## Interactive and fresh-imagery workflow
 
-A single guided notebook and a small website combining **the Sentinel-5P nitrogen dioxide analysis** with **the existing Sentinel-2 methane screening workflow** for the UAE.
+A single guided notebook and a small website combining the Sentinel-5P nitrogen dioxide analysis with the existing Sentinel-2 methane screening workflow for the UAE.
 
-**[Open the demo](https://losth6wz.github.io/Geoguard/) · [Open the notebook in Colab](https://colab.research.google.com/github/losth6wz/Geoguard/blob/cea5cfc/Geoguard.ipynb)**
+[Open the demo](https://losth6wz.github.io/Geoguard/) · [Open the notebook in Colab](https://colab.research.google.com/github/losth6wz/Geoguard/blob/cea5cfc/Geoguard.ipynb)
 
 ## Start
 
-1. Open the notebook and press **Run all**. Initial software/model setup may take several minutes.
+1. Open the notebook and press Run all. Initial software/model setup may take several minutes.
 2. Leave the Earth Engine project blank for saved examples, or enter your registered project ID and complete sign-in to calculate fresh NO₂ values.
 3. Choose a UAE point on the shared map. The NO₂ and methane controls appear directly below the map.
-4. Run **Step 5A** to open the website connected to the AI inside Colab. Choose a point and press **Check latest satellite image**. Results return automatically. Manual JSON export/import remains available.
+4. Run Step 5A to open the website connected to the AI inside Colab. Choose a point and press Check latest satellite image. Results return automatically. Manual JSON export/import remains available.
 5. Download the methane evidence/history ZIP before closing Colab. Runtime storage is temporary.
 
-The public GitHub Pages website offers saved evidence and a **Start AI in Colab** link. Step 5A serves the same website through Colab's authenticated output frame with a Python AI service behind it. Colab must remain connected. This is an on-demand latest-image check, not unattended monitoring. A selected location is never silently moved to a prepared example. NO₂ calculations remain in the notebook.
+The public GitHub Pages website offers saved evidence and a Start AI in Colab link. Step 5A serves the same website through Colab's authenticated output frame with a Python AI service behind it. Colab must remain connected. This is an on-demand latest-image check, not unattended monitoring. A selected location is never silently moved to a prepared example. NO₂ calculations remain in the notebook.
 
 ## What the original NO₂ code does
 
