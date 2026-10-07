@@ -4,7 +4,7 @@ Team: GeoGuard · Theme: Air Quality Intelligence · Pilot: UAE
 
 GeoGuard helps environmental monitoring teams prioritize investigation by comparing dated satellite atmospheric measurements and screening detailed imagery for methane-like patterns.
 
-[Website](https://losth6wz.github.io/Geoguard/) · [PoC notebook with visible outputs](PoC.ipynb) · [Interactive Colab](https://colab.research.google.com/github/losth6wz/Geoguard/blob/main/Geoguard.ipynb)
+[Presentation PDF](presentation/GeoGuard.pdf) · [Editable slides](presentation/GeoGuard.pptx) · [Website](https://losth6wz.github.io/Geoguard/) · [PoC notebook with visible outputs](PoC.ipynb) · [Interactive Colab](https://colab.research.google.com/github/losth6wz/Geoguard/blob/main/Geoguard.ipynb)
 
 ## 1. Business use case
 
@@ -93,7 +93,7 @@ For fresh results, open [Geoguard.ipynb in Colab](https://colab.research.google.
 
 At 23.86479° N, 53.61893° E, the 22 September 2026 observation against 9 September produced 0 candidate pixels with 96.04% usable coverage. Coverage is not accuracy; no candidate does not prove zero methane. This example is distinct from the atmospheric comparison circles.
 
-Code is in `geoguard/`, `live_detection/` and `guided_colab/`; inputs in `sources/` and `examples/input.json`; committed outputs in `examples/` and `docs/assets/`; new runs in ignored `outputs/`. This separation avoids moving or duplicating tested source files solely to match suggested folder names.
+Code is in `geoguard/`, `live_detection/` and `guided_colab/`; inputs in `sources/` and `examples/input.json`; committed outputs in `examples/` and `docs/assets/`; new runs in ignored `outputs/`.
 
 ## 8. Results and limitations
 
@@ -118,6 +118,4 @@ PM, VOC and H₂S instruments are not connected. UAE forecasting, detection accu
 | Raseel | Earth Engine satellite mapping and comparison-area contribution |
 | Abdulaziz | AI methane screening, evidence/history workflow and integration |
 
-These are documented project roles, not proof of portal registration or eligibility. No blanket licence is asserted over team contributions; upstream materials retain their own terms. [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) records Copernicus, UNEP IMEO MARS-S2L, CloudSEN12, meteorology, map and software attribution. No raw imagery or model weights are committed.
-
-[Submission audit](SUBMISSION_AUDIT.md) records verified repository checks and the separate portal items that still need confirmation. The repository contents alone cannot establish registration, attached slides or completed submission.
+No blanket licence is asserted over team contributions; upstream materials retain their own terms. [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) records Copernicus, UNEP IMEO MARS-S2L, CloudSEN12, meteorology, map and software attribution. No raw imagery or model weights are committed.
