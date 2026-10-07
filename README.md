@@ -1,6 +1,6 @@
 # GeoGuard — Air Quality Intelligence
 
-Team: GeoGuard · Country: Yemen · Theme: Air Quality Intelligence
+Team: GeoGuard · Theme: Air Quality Intelligence
 Project title: GeoGuard: Satellite Air Quality Evidence for the UAE
 
 One-line summary: GeoGuard combines Sentinel-5P NO₂, CO, SO₂ and regional CH₄ histories with experimental Sentinel-2 methane screening to present dated, location-specific evidence for environmental investigation, while keeping missing data and uncertainty visible.
