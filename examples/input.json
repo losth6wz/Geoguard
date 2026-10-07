@@ -1,0 +1,9 @@
+{
+  "start": "2026-01-01",
+  "end_exclusive": "2026-09-01",
+  "radius_m": 5000,
+  "collection": "COPERNICUS/S5P/NRTI/L3_NO2",
+  "no2_source": "sources/no2_earthengine_export.geojson",
+  "methane_source": "docs/data/demo.json",
+  "mode": "recompute_saved_no2_and_replay_dated_methane"
+}

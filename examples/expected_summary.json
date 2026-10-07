@@ -1,0 +1,25 @@
+{
+  "no2": [
+    {
+      "id": "dubai",
+      "mean_mol_m2": 0.00020785140195749016,
+      "valid_days": 226,
+      "total_days": 243
+    },
+    {
+      "id": "jebel-ali",
+      "mean_mol_m2": 0.0002066659235326792,
+      "valid_days": 224,
+      "total_days": 243
+    }
+  ],
+  "methane": {
+    "latitude": 23.86479,
+    "longitude": 53.61893,
+    "current_acquired_at": "2026-09-22T07:12:57.703362Z",
+    "background_acquired_at": "2026-09-09T07:13:12.928948Z",
+    "candidate_pixels": 0,
+    "common_valid_fraction": 0.9604,
+    "status": "no_candidate"
+  }
+}

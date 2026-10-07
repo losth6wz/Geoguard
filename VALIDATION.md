@@ -39,3 +39,12 @@ Reproduced the reported failure: CDSE returned HTTP 200 HTML Request Rejected to
 Earth Search returned a next link even for a 23-item page; its following page was empty. Added bounded same-provider GET pagination instead of treating a next link as failure. All 25 local tests pass, including this exact short-page case.
 
 Full repaired Colab website-to-model run completed successfully at 25.2048 N, 55.2708 E: candidate, 115 flagged pixels, 96.04% usable coverage, current 2026-09-29 and reference 2026-09-19. Result was observed in the actual embedded website. This is an unreviewed candidate, not confirmed emissions; it differs from the previous local run and no identical environmental inputs are assumed.
+# Submission packaging — 7 October 2026
+
+- Added a separate credential-free `Submission.ipynb`; every cell executed successfully under Python 3.12.14. It recalculates actual archived NO₂ data and replays dated methane evidence, without claiming fresh inference.
+- All 25 existing tests passed. Submission assertions checked exact daily/monthly parity with the archived NO₂ evidence, expected means/counts and methane location/date/result.
+- Added example input, numerical reference, actual exported JSON and executed notebook. The notebook exports both JSON and CSV.
+- Common credential-signature scan of tracked text and new submission artifacts found no matches. This is not proof against every possible secret. No raw satellite images or model weights were added.
+- Repository visibility was confirmed PUBLIC. The portal's linked submission guide and presentation PDF were not supplied; no portal submission or new scientific validation was performed.
+
+Clean-environment check: created a new Python 3.12 virtual environment, installed the pinned runner requirements, and executed the complete submission notebook successfully. The full resolved runner environment is pinned in requirements.txt. Optional interactive/live inference dependencies are separate.

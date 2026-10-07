@@ -1,4 +1,56 @@
-# Geoguard
+# GeoGuard — Air Quality Intelligence
+
+**Team:** GeoGuard · **Country:** Yemen · **Theme:** Air Quality Intelligence
+**Project title:** GeoGuard: Satellite Air Quality Evidence for the UAE
+
+**One-line summary:** GeoGuard combines Sentinel-5P nitrogen dioxide histories with experimental Sentinel-2 methane screening to present dated, location-specific evidence for environmental investigation, while keeping missing data and uncertainty visible.
+
+**[Demo website](https://losth6wz.github.io/Geoguard/) · [Submission notebook](Submission.ipynb) · [Interactive notebook](Geoguard.ipynb)**
+
+## Reproduce the submission end to end
+
+Use Python 3.12. Clone this public repository, then run:
+
+```bash
+git clone https://github.com/losth6wz/Geoguard.git
+cd Geoguard
+python -m venv .venv
+# Activate .venv for your operating system, then:
+python -m pip install -r requirements.txt
+python scripts/run_submission.py
+```
+
+The runner executes every cell in `Submission.ipynb` and writes an executed notebook, `result.json` and `no2_summary.csv` to `outputs/submission/`. Open the notebook in any Jupyter-compatible editor to inspect or run individual steps. No sign-in, API key, imagery download or manual UI interaction is required after installing the runner dependencies.
+
+This reproducible path recalculates NO₂ summaries from the bundled actual Earth Engine export and packages an existing dated methane result. **It does not perform fresh methane inference.** The separate `Geoguard.ipynb` supports new model checks and interactive NO₂ queries; see the live workflow below.
+
+## Submission checklist
+
+| Form requirement | Repository evidence / status |
+|---|---|
+| README.md | This page: purpose, setup, workflow, outputs and limitations |
+| End-to-end Jupyter notebook | [Submission.ipynb](Submission.ipynb), executable with the command above |
+| Pinned requirements.txt | [requirements.txt](requirements.txt): exact runner dependencies, including resolved transitive packages |
+| Example input | [examples/input.json](examples/input.json) and [actual NO₂ export](sources/no2_earthengine_export.geojson) |
+| Example output | [expected numerical summary](examples/expected_summary.json), [website-compatible output](examples/result.json) and [executed notebook](examples/Submission-executed.ipynb) |
+| No credentials or restricted imagery | Submission uses public Sentinel-derived numerical records; no raw satellite imagery or model weights are bundled. See source terms below. |
+| Organizer access | Public repository: https://github.com/losth6wz/Geoguard |
+| Presentation slides | Upload a PDF (maximum 50 MB) separately in the submission form; not provided by this repository update |
+| Optional supporting archive | Form permits a ZIP up to 200 MB; GitHub source ZIP is available from Code → Download ZIP |
+
+The screenshot is the checklist used here. Its linked submission guide was not supplied, so guide-specific requirements and whether judges require fresh inference in the noninteractive notebook remain unverified. Team membership/registration and final form submission must be completed in the organizer portal.
+
+## Example results and provenance
+
+| Area / observation | Result |
+|---|---|
+| Dubai NO₂, January–August 2026 | 0.00020785140195749016 mol/m²; 226/243 usable days |
+| Jebel Ali NO₂, January–August 2026 | 0.0002066659235326792 mol/m²; 224/243 usable days |
+| Saved UAE methane check, 22 September 2026 | 0 candidate pixels; 96.04% usable coverage; reference 9 September |
+
+NO₂ is an atmospheric column, not AQI or ground-level exposure. Methane screening is experimental; no candidate does not prove absence. The methane example is at its own recorded location, not either NO₂ comparison point. These products are not combined into a safety score. Original exports and source scripts are in `sources/`; attribution and reuse conditions are in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+
+## Interactive and fresh-imagery workflow
 
 A single guided notebook and a small website combining **the Sentinel-5P nitrogen dioxide analysis** with **the existing Sentinel-2 methane screening workflow** for the UAE.
 
