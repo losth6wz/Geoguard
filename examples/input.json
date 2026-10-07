@@ -5,5 +5,8 @@
   "collection": "COPERNICUS/S5P/NRTI/L3_NO2",
   "no2_source": "sources/no2_earthengine_export.geojson",
   "methane_source": "docs/data/demo.json",
-  "mode": "recompute_saved_no2_and_replay_dated_methane"
+  "mode": "recompute_saved_satellite_measurements_and_replay_dated_methane",
+  "measurements_source": "sources/measurements_earthengine_export.geojson",
+  "measurements_start": "2026-08-01",
+  "measurements_end_exclusive": "2026-10-01"
 }

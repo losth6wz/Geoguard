@@ -49,13 +49,13 @@ def public_methane(result, figure_data=None):
         data['figure_data'] = figure_data
     return data
 
-def bundle(no2=None, methane=None):
+def bundle(no2=None, methane=None, measurements=None):
     return {'schema': 'geoguard-demo-v1', 'exported_at': datetime.now(timezone.utc).isoformat(),
-            'no2': no2, 'methane': methane,
-            'interpretation': 'NO2 column amounts and methane candidate scores are separate quantities. No overall safe/polluted verdict is calculated.'}
+            'no2': no2, 'methane': methane, 'measurements': measurements or {},
+            'interpretation': 'Atmospheric columns, regional methane mixing ratio and detailed methane candidate scores are separate quantities. No overall safe/polluted verdict is calculated.'}
 
-def export_bundle(path, no2=None, methane=None):
+def export_bundle(path, no2=None, methane=None, measurements=None):
     p = Path(path)
     p.parent.mkdir(parents=True, exist_ok=True)
-    p.write_text(json.dumps(bundle(no2, methane), ensure_ascii=False, indent=2, allow_nan=False), encoding='utf-8')
+    p.write_text(json.dumps(bundle(no2, methane, measurements), ensure_ascii=False, indent=2, allow_nan=False), encoding='utf-8')
     return p

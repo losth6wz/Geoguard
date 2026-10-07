@@ -48,3 +48,26 @@ Full repaired Colab website-to-model run completed successfully at 25.2048 N, 55
 - Repository visibility was confirmed PUBLIC. The portal's linked submission guide and presentation PDF were not supplied; no portal submission or new scientific validation was performed.
 
 Clean-environment check: created a new Python 3.12 virtual environment, installed the pinned runner requirements, and executed the complete submission notebook successfully. The full resolved runner environment is pinned in requirements.txt. Optional interactive/live inference dependencies are separate.
+
+## Feasible pollution measurements — 7 October 2026
+
+Added CO and SO₂ atmospheric columns and albedo-bias-corrected regional CH₄ dry-air mixing ratio, using documented Sentinel-5P products. CH₄ uses OFFL only. Ground PM, VOC and H₂S instruments/data have not been connected; aerosol index is not treated as direct PM mass. Existing NO₂ and experimental Sentinel-2 methane screening remain separate.
+
+The authenticated Earth Engine calculation retrieves 61 daily slots during 2026-08-01 to before 2026-10-01 in the Dubai/Jebel Ali 5 km circles. Actual raw reductions and map PNGs are committed, rather than generated demonstration numbers. The shared Python parser reproduces complete daily/monthly/period outputs. Means and usable days are:
+
+| Quantity | Dubai | Jebel Ali |
+|---|---|---|
+| CO | 0.03633414750830455 mol/m²; 52/61 | 0.0376982856798005 mol/m²; 60/61 |
+| SO₂ | 0.00014582788242312894 mol/m²; 60/61 | 0.0001439617467042297 mol/m²; 60/61 |
+| Regional CH₄ | 1966.9282903751287 ppb; 33/61 | 1969.5609751337006 ppb; 37/61 |
+
+NO₂ keeps its January–August example window. Display conversions are ×1,000,000 for NO₂/SO₂ columns and ×1,000 for CO; regional CH₄ stays ppb. New map legends state native quantity, converted display scale and missing-data meaning. Map pixels average their own usable days; area tables weight usable daily spatial means equally, so maps and tables can have different weights.
+
+Executed checks:
+
+- All 30 local software tests pass, including actual-export parity, negative/missing values, zero-pixel exclusions, product/provenance rejection and widget state changes. Optional widget tests skip in lightweight CI.
+- All PoC notebook cells execute in the existing clean Python 3.12 runner environment, recomputing raw inputs, checking expected results and exporting all quantities to JSON/CSV. This replays dated methane evidence without fresh inference.
+- All interactive notebook cells execute locally with optional sign-in skipped and installation skipped. The existing full methane environment supplies its dependencies; no new independent inference is claimed.
+- Browser checks confirm each added quantity's value, unit, dates, coverage, map overlay, scale and chart; website import of the PoC output, rejection of incorrect quantity units, legacy NO₂-only import and explicit empty results at arbitrary new coordinates work.
+
+Remote retrieval used the exact published JavaScript equivalent in an authenticated Code Editor. A fresh authenticated Python query was not executed: it still requires the user's registered Earth Engine account/project. Independent UAE accuracy, uncertainty intervals, source attribution, surface exposure and forecasting are not established by software checks. Different valid days and native footprints limit comparisons. The final shared report preserves the earlier AI section and figure and places the integrated case study on its last page.

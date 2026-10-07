@@ -25,5 +25,16 @@ class WidgetTests(unittest.TestCase):
         self.lab.calculate_no2()
         self.assertIsNone(self.lab.no2_result)
         self.assertIn('project ID',self.lab.no2_status.value)
+    def test_metric_switch_preserves_evidence_and_location_clears(self):
+        self.lab.load_no2_example()
+        self.lab.metric.value='CH4'
+        self.assertEqual(self.lab.product.value,'OFFL')
+        self.assertEqual(list(self.lab.product.options),['OFFL'])
+        self.assertIn('ppb',self.lab.no2_status.value)
+        self.assertIsNotNone(self.lab.no2_result)
+        self.assertEqual(set(self.lab.measurements),{'CO','SO2','CH4'})
+        self.lab.lat.value=25.3
+        self.assertEqual(self.lab.measurements,{})
+        self.assertIsNone(self.lab.no2_result)
 
 if __name__=='__main__':unittest.main()

@@ -21,5 +21,49 @@
     "candidate_pixels": 0,
     "common_valid_fraction": 0.9604,
     "status": "no_candidate"
+  },
+  "measurements": {
+    "CO": [
+      {
+        "id": "dubai",
+        "mean_value": 0.03633414750830455,
+        "valid_days": 52,
+        "total_days": 61
+      },
+      {
+        "id": "jebel-ali",
+        "mean_value": 0.0376982856798005,
+        "valid_days": 60,
+        "total_days": 61
+      }
+    ],
+    "SO2": [
+      {
+        "id": "dubai",
+        "mean_value": 0.00014582788242312894,
+        "valid_days": 60,
+        "total_days": 61
+      },
+      {
+        "id": "jebel-ali",
+        "mean_value": 0.0001439617467042297,
+        "valid_days": 60,
+        "total_days": 61
+      }
+    ],
+    "CH4": [
+      {
+        "id": "dubai",
+        "mean_value": 1966.9282903751287,
+        "valid_days": 33,
+        "total_days": 61
+      },
+      {
+        "id": "jebel-ali",
+        "mean_value": 1969.5609751337006,
+        "valid_days": 37,
+        "total_days": 61
+      }
+    ]
   }
 }
