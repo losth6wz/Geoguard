@@ -10,6 +10,14 @@ GeoGuard helps environmental monitoring teams prioritize investigation by compar
 
 Environmental monitoring and enforcement teams need to decide which areas need closer review or gas-specific field measurements. GeoGuard brings satellite context, observation history and methane image evidence into one map. It supports the review step that otherwise involves consulting separate satellite products and investigation records; it does not make an enforcement decision. The PoC demonstrates that workflow without a ground sensor network or a validated UAE forecast. Commercial use would require appropriate model licences and independent validation.
 
+### Demonstrated investigation workflow
+
+An analyst can select Dubai and NO₂, inspect 207.85 µmol/m² for January–August 2026 with 226/243 usable days, compare Jebel Ali and examine the monthly history. The means demonstrate data access and comparison; unequal coverage and uncertainty do not establish a significant difference or identify a source. Selecting the separate methane example shows the dated 22 September / 9 September comparison, 0 candidate pixels and 96.04% usable coverage. No candidate is not proof of zero methane.
+
+The website’s Download current evidence action saves JSON with the selected location, quantity, matching evidence, dates and an investigation handoff. Records from other locations keep their own coordinates. An unmeasured selection exports an explicit unknown result instead of inheriting another area’s finding. A candidate calls for analyst review and, where warranted, calibrated gas-specific field observations matched to satellite time and footprint.
+
+GeoGuard’s original contribution is the shared evidence workflow: quantity switching keeps units, dates and usable coverage aligned; results retain their locations; reproducible exports connect atmospheric context and experimental image screening to investigation. Copernicus supplies the observations, and UNEP IMEO supplies the pretrained detector. Easier evidence assembly is the proposed benefit; reduced review time, better investigation decisions and user adoption have not yet been measured.
+
 ## 2. Problem
 
 Pollution varies across place and time, while individual ground stations cover specific locations and satellite products measure different quantities at different footprints. Missing observations and mixed units can make a combined display misleading. Satellite coverage supplies regional context and repeat observations, while dated, gas-specific displays keep the limits visible. The pilot compares two 5 km circles in Dubai and Jebel Ali and screens one approximately 2 × 2 km UAE area; it does not estimate the prevalence or cost of pollution across the UAE.
@@ -109,6 +117,14 @@ All 30 local software tests passed on 7 October 2026. The PoC ran end to end in 
 Columns are not surface concentrations, AQI, personal exposure or emission rates. SO₂'s assumed ground-level profile does not make it a surface reading. Regional XCH₄ is distinct from detailed methane scores. Colors are display scales, not health thresholds. The approximately 1.1 km L3 grid is not native instrument resolving power. Unequal valid days, clouds, different footprints, reference uncertainty and wind affect interpretation. Candidates need review; missing imagery remains unknown.
 
 PM, VOC and H₂S instruments are not connected. UAE forecasting, detection accuracy, source attribution and health-safety classifications are not validated. Fresh authenticated Python atmospheric queries were not executed in the audit; the archived retrievals used the equivalent authenticated Earth Engine JavaScript. The public website displays dated evidence; unattended operation requires persistent hosting.
+
+![Actual GeoGuard area selection and dated NO₂ evidence](docs/assets/interface-dubai.png)
+
+### Proposed validation pilot
+
+One willing environmental monitoring partner, one agreed study area and four weeks after access is arranged form the proposed pilot. Partner participation and data access are not secured. Build independently reviewed positive/no-plume cases plus cloud/surface confounders, freeze the method before evaluation, and hold out dates and locations. Report labeled case counts, precision/recall, false alarms and not-assessable cases where the reference labels support those measures. Extend collection if usable imagery or labels are insufficient; do not infer accuracy from coverage or software tests.
+
+Ask at least three intended users to complete a review/export task. Record completion, time and interpretation errors against their existing workflow, with permission to use anonymized findings. This contact has not happened in the documented evidence. Define numeric detection and false-alarm targets with the partner before evaluation. Advance only when those targets are met, exported evidence is traceable, and all three participants can interpret units, dates and unknown results correctly. [Validation plan and evidence](VALIDATION.md) describes the gates. Requested support is reviewed satellite/field cases and a monitoring partner willing to evaluate the workflow.
 
 ## 9. Team, licence and attribution
 

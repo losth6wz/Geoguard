@@ -42,3 +42,18 @@ The PoC command needs the pinned root requirements. The full widget/inference ch
 Archived remote retrievals used the authenticated Earth Engine JavaScript equivalent. Fresh authenticated Python atmospheric queries still require a registered account/project and were not established by these checks. Software tests do not establish UAE accuracy, uncertainty intervals, source attribution, surface exposure, emissions or forecasting performance. Independent field validation needs gas-specific observations and held-out dates/locations.
 
 The public website displays dated evidence. Fresh atmospheric calculations run in the notebook; methane checks can run through the active Colab embedded service. Unattended operation needs persistent hosting. Optional repeated image searches do not provide new satellite measurements every 15 minutes.
+
+## Proposed scientific and user validation pilot
+
+Status: planned, not completed. No reviewed methane-positive benchmark, detector precision/recall, three-user feedback record or partner commitment is established by the current evidence.
+
+Scope: one willing environmental monitoring partner, one agreed area and four weeks after access is arranged. Extend collection if usable imagery or independent labels are insufficient. Ask for reviewed plume/no-plume cases, gas-specific field observations with acquisition times, and analyst participation. No field instrument is currently connected.
+
+1. Agree the intended investigation decision, labeling protocol and numeric precision/recall and false-alarm acceptance thresholds before evaluation. Independent labels must not come from the detector itself. Retain uncertainty and exclude ambiguous labels from accuracy denominators while reporting their count.
+2. Include positive cases and negative/cloud/surface confounders. Preserve acquisition dates, products, masks, wind and reference provenance. Define events and matching tolerances before scoring; avoid counting neighboring pixels or repeated checks as independent events.
+3. Freeze preprocessing, reference-selection rules and engineering thresholds before the held-out evaluation. Separate development and evaluation dates/locations. If the cases cannot support this separation, report that limitation instead of claiming generalization.
+4. Report reviewed event counts, true/false positives and negatives, event precision/recall where defined, and not-assessable counts separately. A zero denominator yields an undefined metric. No candidate and missing evidence must remain distinct. Compare atmospheric summaries on common usable dates as a sensitivity check before inferring differences.
+5. Have at least three intended users complete the same review/export task with GeoGuard and their existing workflow; counterbalance task order where practical. Record task completion, review time and unit/date/unknown interpretation errors. Request consent for feedback and store identifiable records privately. Report actual counts and findings, including failures, without manufacturing interviews or benefit estimates.
+6. Advance only after the pre-agreed scientific thresholds are met, every export can be traced to its original observation, and all three participants interpret the evidence correctly. Measured time savings, if any, remain pilot findings rather than guaranteed benefits. Persistent hosting and acquisition latency need separate operational checks before unattended use.
+
+The team contribution is source-aware evidence integration and investigation handoff, not creation of Copernicus measurements or training the upstream MARS-S2L model. Hyperspectral data would be considered only if a comparison demonstrates a relevant improvement; it is not implemented or required for the current workflow.

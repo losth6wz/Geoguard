@@ -2,6 +2,16 @@
 const presets={dubai:{name:'Dubai comparison area',lat:25.2048,lon:55.2708},'jebel-ali':{name:'Jebel Ali comparison area',lat:25.0083,lon:55.0875},'uae-example':{name:'Example methane area',lat:23.86479,lon:53.61893}};
 const $=id=>document.getElementById(id), text=(id,value)=>$(id).textContent=value;
 let data=null, original=null, selected={...presets.dubai}, map, marker, areaLayers=[], overlay;
+function downloadEvidence(){
+ if(!data)return;
+ const atmosphere=measurement(),area=atmosphere?.sites?.find(s=>near(s.latitude,s.longitude));
+ const methane=data.methane&&near(data.methane.latitude,data.methane.longitude)?data.methane:null;
+ const handoff={selected_area:{...selected},selected_quantity:metric(),atmospheric_evidence:area?{collection:atmosphere.collection,band:atmosphere.band,units:atmosphere.units,start:atmosphere.start,end_exclusive:atmosphere.end_exclusive,area}:null,methane_evidence:methane,interpretation:(!area&&!methane)?'No recorded evidence at this selected point. A new calculation is required.':'Review observation dates, usable coverage and provenance before requesting gas-specific follow-up. No source, safety or emission conclusion is established.',next_action:'Analyst review; if warranted, arrange calibrated gas-specific observations matched to satellite time and footprint. Missing evidence stays unknown.'};
+ const output={...data,exported_at:new Date().toISOString(),investigation_handoff:handoff};
+ const url=URL.createObjectURL(new Blob([JSON.stringify(output,null,2)],{type:'application/json'}));
+ const link=document.createElement('a');link.href=url;link.download='GeoGuard-evidence-'+selected.lat.toFixed(5)+'-'+selected.lon.toFixed(5)+'.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+ text('import-status','Downloaded evidence with the selected area, dates and follow-up note. Other bundled records retain their own locations.');
+}
 const near=(lat,lon)=>Number.isFinite(lat)&&Number.isFinite(lon)&&Math.abs(lat-selected.lat)<0.00001&&Math.abs(lon-selected.lon)<0.00001;
 const finite=x=>typeof x==='number'&&Number.isFinite(x);
 const metrics={NO2:{label:'NO₂',name:'Nitrogen dioxide',units:'mol/m²',unit:'µmol/m²',factor:1e6,band:'tropospheric_NO2_column_number_density',quantity:'Tropospheric NO₂ column'},CO:{label:'CO',name:'Carbon monoxide',units:'mol/m²',unit:'mmol/m²',factor:1e3,band:'CO_column_number_density',quantity:'Total atmospheric CO column'},SO2:{label:'SO₂',name:'Sulfur dioxide',units:'mol/m²',unit:'µmol/m²',factor:1e6,band:'SO2_column_number_density',quantity:'SO₂ vertical column; assumed ground-level profile'},CH4:{label:'CH₄ regional',name:'Regional methane',units:'ppb',unit:'ppb',factor:1,band:'CH4_column_volume_mixing_ratio_dry_air_bias_corrected',quantity:'Column-averaged dry-air CH₄ mixing ratio; albedo-bias-corrected'}};
@@ -117,3 +127,5 @@ $('live-check').addEventListener('click',async()=>{
  finally{$('live-check').disabled=false;}
 });
 connectLive();
+
+$('download-evidence').addEventListener('click',downloadEvidence);

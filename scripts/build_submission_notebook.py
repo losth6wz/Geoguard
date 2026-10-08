@@ -132,6 +132,29 @@ record is evidence about one screened observation, not an air-quality verdict.
 For fresh queries, open `Geoguard.ipynb`: Earth Engine sign-in is required for fresh satellite
 queries; the experimental methane workflow downloads public imagery and pretrained weights.
 See `README.md`, `VALIDATION.md` and `THIRD_PARTY_NOTICES.md` for scope and provenance.''')
+md('''## Investigation demonstration and proposed validation
+Import `outputs/submission/result.json` into the website. Select Dubai and NO₂,
+review units, January–August dates and 226/243 usable days, and compare Jebel Ali
+and the monthly history. The mean difference alone is inconclusive. Select the
+separate methane example to inspect its dated no-candidate record.
+
+Use Download current evidence to save the selected location, quantity and matching
+records with a follow-up note. An unmeasured point remains unknown. Candidates
+need analyst review before calibrated, gas-specific observations matched to
+satellite time and footprint.
+
+The team's contribution is source-aware evidence integration and investigation
+handoff. Copernicus supplies the observations; UNEP IMEO supplies the pretrained
+detector. Easier evidence assembly is a proposed benefit, not measured time savings.
+
+Proposed pilot: one willing monitoring partner, one agreed area and four weeks after
+data access is arranged. Independently review positive/no-plume and confounder
+cases, freeze thresholds, and evaluate held-out dates/locations. Report event counts,
+precision/recall and not-assessable cases where labels support them. Three intended
+users should compare review/export with their existing workflow; record time,
+completion and interpretation errors. Agree scientific acceptance targets first.
+No partner commitment, independent UAE detection accuracy or completed user
+feedback is established. Full protocol and success gates are in `VALIDATION.md`.''')
 for index, cell in enumerate(cells):
     cell['id'] = f'submission-{index + 1}'
 notebook = nbf.v4.new_notebook(cells=cells, metadata={
